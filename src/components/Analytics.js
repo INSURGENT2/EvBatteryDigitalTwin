@@ -57,13 +57,41 @@ const Analytics = () => {
   const [data, setData] = useState(generateFakeData());
   const [key, setKey] = useState('performance');
   const [activeButton, setActiveButton] = useState('performance');
+  const [errorData, setErrorData] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setData(generateFakeData());
+      setErrorData(generateRandomErrors());
     }, 10000);
     return () => clearInterval(interval);
   }, []);
+
+  const generateRandomErrors = () => {
+    const possibleErrors = [
+      "Cell_Voltage out of range in 5 samples.",
+      "Check cell_voltage control systems and process parameters.",
+      "Cell_Impedance out of range in 3 samples.",
+      "Check cell_impedance control systems and process parameters.",
+      "Cell_Capacity out of range in 1 sample.",
+      "Check cell_capacity control systems and process parameters.",
+      "Compression_Force out of range in 2 samples.",
+      "Check compression_force control systems and process parameters.",
+      "Welding_Current out of range in 5 samples.",
+      "Check welding_current control systems and process parameters.",
+      "Assembly_Time out of range in 5 samples.",
+      "Check assembly_time control systems and process parameters.",
+      "Leakage_Rate out of range in 71 samples.",
+      "Check leakage_rate control systems and process parameters.",
+      "Machine vision process parameter anomaly. Check equipment calibration.",
+      "Unusual energy density detected in some cells.",
+      "Verify cell specifications and quality control processes."
+    ];
+    
+    return possibleErrors
+      .sort(() => 0.5 - Math.random())
+      .slice(0, Math.floor(Math.random() * 10) + 5);
+  };
 
   const renderPerformanceMetrics = () => {
     const metrics = {
@@ -128,6 +156,19 @@ const Analytics = () => {
     </Card>
   );
 
+  const renderErrors = () => (
+    <Card className="mb-4" style={{ backgroundColor: '#1a1a1a', color: '#00ff00' }}>
+      <Card.Header>Detected Errors and Suggested Improvements</Card.Header>
+      <Card.Body>
+        <ul style={{ listStyleType: 'none', padding: 0 }}>
+          {errorData.map((error, index) => (
+            <li key={index} style={{ marginBottom: '10px' }}>• {error}</li>
+          ))}
+        </ul>
+      </Card.Body>
+    </Card>
+  );
+
   const handleButtonClick = (key) => {
     setKey(key);
     setActiveButton(key);
@@ -142,6 +183,9 @@ const Analytics = () => {
         </Tab>
         <Tab eventKey="features" title={<Button variant="link" style={{ color: activeButton === 'features' ? '#000000' : '#00ff00' }}>Features</Button>}>
           {key === 'features' && renderFeatureImportance()}
+        </Tab>
+        <Tab eventKey="errors" title={<Button variant="link" style={{ color: activeButton === 'errors' ? '#000000' : '#00ff00' }}>Errors</Button>}>
+          {key === 'errors' && renderErrors()}
         </Tab>
       </Tabs>
     </div>
