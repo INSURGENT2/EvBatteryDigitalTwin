@@ -32,20 +32,24 @@ const Footer = ({
     <footer
       {...props}
       className={classes}
+      style={{ backgroundColor: '#000', color: '#00ff00' }}  // Black background and green text
     >
       <div className="container">
         <div className={
           classNames(
             'site-footer-inner',
             topDivider && 'has-top-divider'
-          )}>
-          <div className="footer-top space-between text-xxs">
+          )}
+        >
+          <div className="footer-top space-between text-xxs" style={{ borderBottom: '1px solid #00ff00' }}>
             <Logo />
             <FooterSocial />
           </div>
           <div className="footer-bottom space-between text-xxs invert-order-desktop">
             <FooterNav />
-            <div className="footer-copyright">Made by <a href="https://cruip.com">Cruip</a>. All right reserved</div>
+            <div className="footer-copyright">
+              Made by <a href="https://cruip.com" style={{ color: '#00ff00' }}>Cruip</a>. All rights reserved.
+            </div>
           </div>
         </div>
       </div>

@@ -8,13 +8,18 @@ import Cta from '../components/sections/Cta';
 
 const Home = () => {
 
+  const sectionStyle = {
+    backgroundColor: '#000',   // Black background
+    color: '#00ff00'           // Green text color
+  };
+
   return (
     <>
-      <Hero className="illustration-section-01" />
-      <FeaturesTiles />
-      <FeaturesSplit invertMobile topDivider imageFill className="illustration-section-02" />
-      <Testimonial topDivider />
-      <Cta split />
+      <Hero className="illustration-section-01" style={sectionStyle} />
+      <FeaturesTiles style={sectionStyle} />
+      <FeaturesSplit invertMobile topDivider imageFill className="illustration-section-02" style={sectionStyle} />
+      <Testimonial topDivider style={sectionStyle} />
+      <Cta split style={sectionStyle} />
     </>
   );
 }

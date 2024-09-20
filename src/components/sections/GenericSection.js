@@ -44,9 +44,19 @@ const GenericSection = ({
     <section
       {...props}
       className={outerClasses}
+      style={{ 
+        backgroundColor: '#1E2746',
+        color: '#A1FFC4',
+        borderColor: '#A1FFC4'
+      }}
     >
       <div className="container">
-        <div className={innerClasses}>
+        <div 
+          className={innerClasses}
+          style={{
+            borderColor: '#A1FFC4'
+          }}
+        >
           {children}
         </div>
       </div>

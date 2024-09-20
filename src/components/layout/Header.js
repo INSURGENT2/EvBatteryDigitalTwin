@@ -29,9 +29,7 @@ const Header = ({
   bottomDivider,
   ...props
 }) => {
-
   const [isActive, setIsactive] = useState(false);
-
   const nav = useRef(null);
   const hamburger = useRef(null);
 
@@ -44,7 +42,7 @@ const Header = ({
       document.removeEventListener('click', clickOutside);
       closeMenu();
     };
-  });  
+  });
 
   const openMenu = () => {
     document.body.classList.add('off-nav-is-active');
@@ -66,7 +64,7 @@ const Header = ({
     if (!nav.current) return
     if (!isActive || nav.current.contains(e.target) || e.target === hamburger.current) return;
     closeMenu();
-  }  
+  }
 
   const classes = classNames(
     'site-header',
@@ -78,6 +76,11 @@ const Header = ({
     <header
       {...props}
       className={classes}
+      style={{
+        backgroundColor: '#1a1a1a',
+        color: '#ffffff',
+        borderBottom: '2px solid #00ff00'
+      }}
     >
       <div className="container">
         <div className={
@@ -92,10 +95,13 @@ const Header = ({
                 ref={hamburger}
                 className="header-nav-toggle"
                 onClick={isActive ? closeMenu : openMenu}
+                style={{
+                  color: '#00ff00'
+                }}
               >
                 <span className="screen-reader">Menu</span>
                 <span className="hamburger">
-                  <span className="hamburger-inner"></span>
+                  <span className="hamburger-inner" style={{ backgroundColor: '#00ff00' }}></span>
                 </span>
               </button>
               <nav
@@ -104,25 +110,31 @@ const Header = ({
                   classNames(
                     'header-nav',
                     isActive && 'is-active'
-                  )}>
+                  )}
+                style={{
+                  backgroundColor: '#1a1a1a'
+                }}
+              >
                 <div className="header-nav-inner">
                   <ul className={
                     classNames(
                       'list-reset text-xs',
                       navPosition && `header-nav-${navPosition}`
-                    )}>
+                    )}
+                    style={{
+                      color: '#ffffff'
+                    }}
+                  >
                     <li>
-                      <Link to="#0" onClick={closeMenu}>Documentation</Link>
+                      <Link to="/" onClick={closeMenu} style={{ color: '#ffffff' }}>Overview</Link>
+                    </li>
+                    <li>
+                      <Link to="/what-if-scenario" onClick={closeMenu} style={{ color: '#ffffff' }}>What-if Scenario</Link>
+                    </li>
+                    <li>
+                      <Link to="/analytics" onClick={closeMenu} style={{ color: '#ffffff' }}>Analytics</Link>
                     </li>
                   </ul>
-                  {!hideSignin &&
-                    <ul
-                      className="list-reset header-nav-right"
-                    >
-                      <li>
-                        <Link to="#0" className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Sign up</Link>
-                      </li>
-                    </ul>}
                 </div>
               </nav>
             </>}

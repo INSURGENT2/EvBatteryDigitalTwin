@@ -52,29 +52,45 @@ const Hero = ({
     bottomDivider && 'has-bottom-divider'
   );
 
+  const heroStyle = {
+    backgroundColor: '#1E2746', // Dark Blue background
+    color: '#A1FFC4'            // Light Green text
+  };
+
+  const buttonPrimaryStyle = {
+    backgroundColor: '#A1FFC4', // Light Green background
+    color: '#1E2746'            // Dark Blue text
+  };
+
+  const buttonDarkStyle = {
+    backgroundColor: '#1E2746', // Dark Blue background
+    color: '#A1FFC4'            // Light Green text
+  };
+
   return (
     <section
       {...props}
       className={outerClasses}
+      style={heroStyle}  // Apply dark blue and light green theme
     >
       <div className="container-sm">
         <div className={innerClasses}>
           <div className="hero-content">
             <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
-              Landing template for <span className="text-color-primary">startups</span>
+              AI-Powered <span style={{ color: '#A1FFC4' }}>EV Battery Assembly</span>
             </h1>
             <div className="container-xs">
               <p className="m-0 mb-32 reveal-from-bottom" data-reveal-delay="400">
-                Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.
-                </p>
+                Our advanced AI-driven solution transforms the EV battery assembly process by predicting component failures, optimizing production workflows, and improving energy efficiency—all in real-time.
+              </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
-                  <Button tag="a" color="primary" wideMobile href="https://cruip.com/">
+                  <Button tag="a" style={buttonPrimaryStyle} wideMobile href="#0">
                     Get started
-                    </Button>
-                  <Button tag="a" color="dark" wideMobile href="https://github.com/cruip/open-react-template/">
-                    View on Github
-                    </Button>
+                  </Button>
+                  <Button tag="a" style={buttonDarkStyle} wideMobile href="#0">
+                    Learn More
+                  </Button>
                 </ButtonGroup>
               </div>
             </div>
@@ -89,9 +105,10 @@ const Hero = ({
               <Image
                 className="has-shadow"
                 src={require('./../../assets/images/video-placeholder.jpg')}
-                alt="Hero"
+                alt="AI-Powered EV Assembly"
                 width={896}
-                height={504} />
+                height={504}
+              />
             </a>
           </div>
           <Modal
@@ -99,7 +116,8 @@ const Hero = ({
             show={videoModalActive}
             handleClose={closeModal}
             video="https://player.vimeo.com/video/174002812"
-            videoTag="iframe" />
+            videoTag="iframe"
+          />
         </div>
       </div>
     </section>

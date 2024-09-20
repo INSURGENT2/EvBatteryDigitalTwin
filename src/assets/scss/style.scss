@@ -3,17 +3,15 @@
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
-# Variables, functions and mixins
+# Variables, functions, and mixins
 --------------------------------------------------------------*/
-@import "core/abstracts/functions",
-		"settings/settings",
-        "core/abstracts/mixins",
-        'core/abstracts/include-media';
+@import "core/abstracts/functions";
+@import "settings/settings";
+@import "core/abstracts/mixins";
+@import "core/abstracts/include-media";
 
 /*--------------------------------------------------------------
 # Normalize
-	* normalize.css v7.0.0 | MIT License
-	* github.com/necolas/normalize.css
 --------------------------------------------------------------*/
 @import "core/normalize";
 
