@@ -3,19 +3,55 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Card, Button, Tabs, Tab } from 'react-bootstrap';
 import { AlertCircle, TrendingUp, Activity } from "lucide-react";
 
-const generateFakeData = () => ({
-  data: [
-    { y: 'Cell Voltage', x: Math.random() },
-    { y: 'Cell Impedance', x: Math.random() },
-    { y: 'Cell Capacity', x: Math.random() },
-    { y: 'Compression Force', x: Math.random() },
-    { y: 'Welding Current', x: Math.random() },
-    { y: 'Welding Time', x: Math.random() },
-    { y: 'Torque', x: Math.random() },
-    { y: 'Assembly Time', x: Math.random() },
-    { y: 'Leakage Rate', x: Math.random() }
-  ]
-});
+// Configuration for parameter ranges
+const parameterConfig = {
+  cellVoltage: { min: 3.2, max: 4.2, step: 0.1, unit: 'V' },
+  cellImpedance: { min: 0.5, max: 2.0, step: 0.1, unit: 'Ω' },
+  cellCapacity: { min: 2000, max: 5000, step: 100, unit: 'mAh' },
+  compressionForce: { min: 500, max: 2000, step: 50, unit: 'N' },
+  weldingCurrent: { min: 100, max: 300, step: 10, unit: 'A' },
+  weldingTime: { min: 0.1, max: 1.0, step: 0.1, unit: 's' },
+  torque: { min: 5, max: 15, step: 0.5, unit: 'Nm' },
+  assemblyTime: { min: 10, max: 30, step: 1, unit: 'min' },
+  leakageRate: { min: 0, max: 0.1, step: 0.01, unit: 'cm³/min' },
+};
+
+// Function to generate random values based on the parameter configuration
+const generateRandomValue = (min, max, step) => {
+  const range = (max - min) / step;
+  const randomStep = Math.floor(Math.random() * range);
+  return (min + randomStep * step).toFixed(2); // Fixed to 2 decimal points
+};
+
+// Utility function to format numbers into 'K' notation
+const formatValue = (value) => {
+  if (value >= 1000) {
+    return (value / 1000).toFixed(1) + 'K'; // Format as K
+  }
+  return value.toString(); // Return as string for other values
+};
+
+const generateFakeData = () => {
+  const rawData = [
+    { y: 'Cell Voltage', x: generateRandomValue(parameterConfig.cellVoltage.min, parameterConfig.cellVoltage.max, parameterConfig.cellVoltage.step) },
+    { y: 'Cell Impedance', x: generateRandomValue(parameterConfig.cellImpedance.min, parameterConfig.cellImpedance.max, parameterConfig.cellImpedance.step) },
+    { y: 'Cell Capacity', x: generateRandomValue(parameterConfig.cellCapacity.min, parameterConfig.cellCapacity.max, parameterConfig.cellCapacity.step) },
+    { y: 'Compression Force', x: generateRandomValue(parameterConfig.compressionForce.min, parameterConfig.compressionForce.max, parameterConfig.compressionForce.step) },
+    { y: 'Welding Current', x: generateRandomValue(parameterConfig.weldingCurrent.min, parameterConfig.weldingCurrent.max, parameterConfig.weldingCurrent.step) },
+    { y: 'Welding Time', x: generateRandomValue(parameterConfig.weldingTime.min, parameterConfig.weldingTime.max, parameterConfig.weldingTime.step) },
+    { y: 'Torque', x: generateRandomValue(parameterConfig.torque.min, parameterConfig.torque.max, parameterConfig.torque.step) },
+    { y: 'Assembly Time', x: generateRandomValue(parameterConfig.assemblyTime.min, parameterConfig.assemblyTime.max, parameterConfig.assemblyTime.step) },
+    { y: 'Leakage Rate', x: generateRandomValue(parameterConfig.leakageRate.min, parameterConfig.leakageRate.max, parameterConfig.leakageRate.step) },
+  ];
+
+  // Format values for display
+  return {
+    data: rawData.map(item => ({
+      ...item,
+      xFormatted: formatValue(item.x) // Add formatted value for display
+    }))
+  };
+};
 
 const Analytics = () => {
   const [data, setData] = useState(generateFakeData());
@@ -84,7 +120,7 @@ const Analytics = () => {
             <CartesianGrid strokeDasharray="3 3" stroke="#00ff00" />
             <XAxis type="number" stroke="#00ff00" />
             <YAxis dataKey="y" type="category" width={150} stroke="#00ff00" />
-            <Tooltip />
+            <Tooltip formatter={(value) => [formatValue(value), '']} />
             <Bar dataKey="x" fill="#4caf50" barSize={20} />
           </BarChart>
         </ResponsiveContainer>

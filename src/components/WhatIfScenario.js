@@ -18,10 +18,10 @@ const parameterConfig = {
 };
 
 const generateRandomData = () => ({
-  No_Defect: Math.random() * 10,
-  Minor_Defect: Math.random() * 10,
-  Major_Defect: Math.random() * 10,
-  Efficiency: Math.random() * 100,
+  No_Defect: Math.floor(Math.random() * 10) + 1, // Whole number between 1 and 10
+  Minor_Defect: Math.floor(Math.random() * 10) + 1, // Whole number between 1 and 10
+  Major_Defect: Math.floor(Math.random() * 10) + 1, // Whole number between 1 and 10
+  Efficiency: (Math.random() * (95 - 80) + 80).toFixed(2), // Value between 80 and 95
 });
 
 const WhatIfScenario = () => {
