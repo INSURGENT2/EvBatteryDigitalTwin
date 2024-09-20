@@ -4,6 +4,7 @@ import AppRoute from './utils/AppRoute';
 import ScrollReveal from './utils/ScrollReveal';
 import ReactGA from 'react-ga';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 // Layouts
 import LayoutDefault from './layouts/LayoutDefault';
@@ -13,6 +14,7 @@ import Home from './views/Home';
 
 import WhatIfScenario from './components/WhatIfScenario'; // Import What-if Scenario
 import Analytics from './components/Analytics';
+
 
 
 // Initialize Google Analytics

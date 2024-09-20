@@ -1,205 +1,112 @@
-
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { BarChart, Bar } from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { AlertCircle, BarChart2, TrendingUp, Activity } from "lucide-react"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Card, Button, Tabs, Tab } from 'react-bootstrap';
+import { AlertCircle, TrendingUp, Activity } from "lucide-react";
 
-const API_BASE_URL = 'http://localhost:5000';  // Replace with your actual API base URL
+const generateFakeData = () => ({
+  data: [
+    { y: 'Cell Voltage', x: Math.random() },
+    { y: 'Cell Impedance', x: Math.random() },
+    { y: 'Cell Capacity', x: Math.random() },
+    { y: 'Compression Force', x: Math.random() },
+    { y: 'Welding Current', x: Math.random() },
+    { y: 'Welding Time', x: Math.random() },
+    { y: 'Torque', x: Math.random() },
+    { y: 'Assembly Time', x: Math.random() },
+    { y: 'Leakage Rate', x: Math.random() }
+  ]
+});
 
-const Dashboard = () => {
-  const [modelPerformance, setModelPerformance] = useState(null);
-  const [featureImportance, setFeatureImportance] = useState(null);
-  const [confusionMatrix, setConfusionMatrix] = useState(null);
-  const [efficiencyScatter, setEfficiencyScatter] = useState(null);
-  const [anomalies, setAnomalies] = useState(null);
-  const [errors, setErrors] = useState(null);
+const Analytics = () => {
+  const [data, setData] = useState(generateFakeData());
+  const [key, setKey] = useState('performance');
+  const [activeButton, setActiveButton] = useState('performance');
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const performanceResponse = await axios.get(`${API_BASE_URL}/model_performance`);
-        setModelPerformance(performanceResponse.data);
-
-        const featureImportanceResponse = await axios.get(`${API_BASE_URL}/feature_importance`);
-        setFeatureImportance(JSON.parse(featureImportanceResponse.data));
-
-        const confusionMatrixResponse = await axios.get(`${API_BASE_URL}/confusion_matrix`);
-        setConfusionMatrix(JSON.parse(confusionMatrixResponse.data));
-
-        const efficiencyScatterResponse = await axios.get(`${API_BASE_URL}/efficiency_scatter`);
-        setEfficiencyScatter(JSON.parse(efficiencyScatterResponse.data));
-
-        const anomaliesResponse = await axios.get(`${API_BASE_URL}/anomalies`);
-        setAnomalies(anomaliesResponse.data);
-
-        const errorsResponse = await axios.get(`${API_BASE_URL}/error_detection`);
-        setErrors(errorsResponse.data.errors);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
+    const interval = setInterval(() => {
+      setData(generateFakeData());
+    }, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   const renderPerformanceMetrics = () => {
-    if (!modelPerformance) return null;
+    const metrics = {
+      defect_accuracy: Math.random(),
+      efficiency_r2: Math.random(),
+      efficiency_mse: Math.random() * 10
+    };
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Defect Accuracy
-            </CardTitle>
-            <AlertCircle className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{(modelPerformance.defect_accuracy * 100).toFixed(2)}%</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Efficiency R²
-            </CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{modelPerformance.efficiency_r2.toFixed(4)}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Efficiency MSE
-            </CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{modelPerformance.efficiency_mse.toFixed(4)}</div>
-          </CardContent>
-        </Card>
+      <div className="row mb-4">
+        <div className="col-md-4">
+          <Card style={{ backgroundColor: '#1a1a1a', color: '#00ff00' }}>
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              <h6>Defect Accuracy</h6>
+              <AlertCircle className="text-accent" />
+            </Card.Header>
+            <Card.Body>
+              <h4>{(metrics.defect_accuracy * 100).toFixed(2)}%</h4>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-4">
+          <Card style={{ backgroundColor: '#1a1a1a', color: '#00ff00' }}>
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              <h6>Efficiency R²</h6>
+              <TrendingUp className="text-accent" />
+            </Card.Header>
+            <Card.Body>
+              <h4>{metrics.efficiency_r2.toFixed(4)}</h4>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-4">
+          <Card style={{ backgroundColor: '#1a1a1a', color: '#00ff00' }}>
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              <h6>Efficiency MSE</h6>
+              <Activity className="text-accent" />
+            </Card.Header>
+            <Card.Body>
+              <h4>{metrics.efficiency_mse.toFixed(4)}</h4>
+            </Card.Body>
+          </Card>
+        </div>
       </div>
     );
   };
 
-  const renderFeatureImportance = () => {
-    if (!featureImportance) return null;
+  const renderFeatureImportance = () => (
+    <Card className="mb-4" style={{ backgroundColor: '#1a1a1a', color: '#00ff00' }}>
+      <Card.Header>Feature Data</Card.Header>
+      <Card.Body>
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={data.data} layout="vertical">
+            <CartesianGrid strokeDasharray="3 3" stroke="#00ff00" />
+            <XAxis type="number" stroke="#00ff00" />
+            <YAxis dataKey="y" type="category" width={150} stroke="#00ff00" />
+            <Tooltip />
+            <Bar dataKey="x" fill="#4caf50" barSize={20} />
+          </BarChart>
+        </ResponsiveContainer>
+      </Card.Body>
+    </Card>
+  );
 
-    return (
-      <Card className="mt-4">
-        <CardHeader>
-          <CardTitle>Feature Importance</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={featureImportance.data} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis type="number" />
-              <YAxis dataKey="y" type="category" />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="x" fill="#8884d8" />
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-    );
-  };
-
-  const renderConfusionMatrix = () => {
-    if (!confusionMatrix) return null;
-
-    return (
-      <Card className="mt-4">
-        <CardHeader>
-          <CardTitle>Confusion Matrix</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div dangerouslySetInnerHTML={{ __html: confusionMatrix.data[0].data }} />
-        </CardContent>
-      </Card>
-    );
-  };
-
-  const renderEfficiencyScatter = () => {
-    if (!efficiencyScatter) return null;
-
-    return (
-      <Card className="mt-4">
-        <CardHeader>
-          <CardTitle>Efficiency Prediction Performance</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div dangerouslySetInnerHTML={{ __html: efficiencyScatter.data[0].data }} />
-        </CardContent>
-      </Card>
-    );
-  };
-
-  const renderAnomalies = () => {
-    if (!anomalies) return null;
-
-    return (
-      <Card className="mt-4">
-        <CardHeader>
-          <CardTitle>Anomaly Detection</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p>Number of anomalies: {anomalies.num_anomalies}</p>
-          <p>Percentage of anomalies: {anomalies.anomaly_percentage.toFixed(2)}%</p>
-        </CardContent>
-      </Card>
-    );
-  };
-
-  const renderErrors = () => {
-    if (!errors) return null;
-
-    return (
-      <Card className="mt-4">
-        <CardHeader>
-          <CardTitle>Error Detection</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ul>
-            {errors.map((error, index) => (
-              <li key={index}>{error}</li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
-    );
+  const handleButtonClick = (key) => {
+    setKey(key);
+    setActiveButton(key);
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">EV Module Assembly Analysis Dashboard</h1>
-      <Tabs defaultValue="performance" className="w-full">
-        <TabsList>
-          <TabsTrigger value="performance">Performance</TabsTrigger>
-          <TabsTrigger value="features">Features</TabsTrigger>
-          <TabsTrigger value="predictions">Predictions</TabsTrigger>
-          <TabsTrigger value="anomalies">Anomalies</TabsTrigger>
-        </TabsList>
-        <TabsContent value="performance">
-          {renderPerformanceMetrics()}
-        </TabsContent>
-        <TabsContent value="features">
-          {renderFeatureImportance()}
-        </TabsContent>
-        <TabsContent value="predictions">
-          {renderConfusionMatrix()}
-          {renderEfficiencyScatter()}
-        </TabsContent>
-        <TabsContent value="anomalies">
-          {renderAnomalies()}
-          {renderErrors()}
-        </TabsContent>
+    <div className="container mt-5" style={{ paddingTop: '60px', backgroundColor: '#000000', color: '#00ff00' }}>
+      <h1 className="mb-4" style={{ fontSize: '1.5rem', maxWidth: '90%' }}>EV Module Assembly Analysis Dashboard</h1>
+      <Tabs activeKey={key} onSelect={handleButtonClick} className="mb-3">
+        <Tab eventKey="performance" title={<Button variant="link" style={{ color: activeButton === 'performance' ? '#000000' : '#00ff00' }}>Performance</Button>}>
+          {key === 'performance' && renderPerformanceMetrics()}
+        </Tab>
+        <Tab eventKey="features" title={<Button variant="link" style={{ color: activeButton === 'features' ? '#000000' : '#00ff00' }}>Features</Button>}>
+          {key === 'features' && renderFeatureImportance()}
+        </Tab>
       </Tabs>
     </div>
   );
