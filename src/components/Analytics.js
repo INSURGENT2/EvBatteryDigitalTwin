@@ -178,13 +178,13 @@ const Analytics = () => {
     <div className="container mt-5" style={{ paddingTop: '60px', backgroundColor: '#000000', color: '#00ff00' }}>
       <h1 className="mb-4" style={{ fontSize: '1.5rem', maxWidth: '90%' }}>EV Module Assembly Analysis Dashboard</h1>
       <Tabs activeKey={key} onSelect={handleButtonClick} className="mb-3">
-        <Tab eventKey="performance" title={<Button variant="link" style={{ color: activeButton === 'performance' ? '#000000' : '#00ff00' }}>Performance</Button>}>
+        <Tab eventKey="performance" title={<Button variant="link" style={{ color: activeButton === 'performance' ? '#000000' : '#00ff00',textDecoration : 'none' }}>Performance</Button>}>
           {key === 'performance' && renderPerformanceMetrics()}
         </Tab>
-        <Tab eventKey="features" title={<Button variant="link" style={{ color: activeButton === 'features' ? '#000000' : '#00ff00' }}>Features</Button>}>
+        <Tab eventKey="features" title={<Button variant="link" style={{ color: activeButton === 'features' ? '#000000' : '#00ff00',textDecoration : 'none' }}>Features</Button>}>
           {key === 'features' && renderFeatureImportance()}
         </Tab>
-        <Tab eventKey="errors" title={<Button variant="link" style={{ color: activeButton === 'errors' ? '#000000' : '#00ff00' }}>Errors</Button>}>
+        <Tab eventKey="errors" title={<Button variant="link" style={{ color: activeButton === 'errors' ? '#000000' : '#00ff00' ,textDecoration : 'none'}}>Errors</Button>}>
           {key === 'errors' && renderErrors()}
         </Tab>
       </Tabs>

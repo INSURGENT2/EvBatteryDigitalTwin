@@ -2,15 +2,14 @@ import React from 'react';
 import classNames from 'classnames';
 import { SectionTilesProps } from '../../utils/SectionProps';
 import SectionHeader from './partials/SectionHeader';
-import Image from '../elements/Image';
 
 const propTypes = {
   ...SectionTilesProps.types
-}
+};
 
 const defaultProps = {
   ...SectionTilesProps.defaults
-}
+};
 
 const FeaturesTiles = ({
   className,
@@ -53,22 +52,26 @@ const FeaturesTiles = ({
     <section
       {...props}
       className={outerClasses}
-      style={{ backgroundColor: '#1E2746', color: '#A1FFC4' }}  // Dark Blue background with Light Green text
+      style={{ backgroundColor: '#1E2746', color: '#A1FFC4' }}
     >
       <div className="container">
         <div className={innerClasses}>
           <SectionHeader data={sectionHeader} className="center-content" />
           <div className={tilesClasses}>
 
+            {/* Tile for Predictive Maintenance */}
             <div className="tiles-item reveal-from-bottom">
               <div className="tiles-item-inner" style={{ backgroundColor: '#111', border: '1px solid #A1FFC4' }}>
                 <div className="features-tiles-item-header">
                   <div className="features-tiles-item-image mb-16">
-                    <Image
-                      src={require('./../../assets/images/feature-tile-icon-01.svg')}
-                      alt="Features tile icon 01"
-                      width={64}
-                      height={64} />
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="32" cy="32" r="30" fill="#A1FFC4" stroke="#111" strokeWidth="2"/>
+                      <path d="M32 18V32L40 36" stroke="#111" strokeWidth="3" strokeLinecap="round"/>
+                      <path d="M32 32L24 36" stroke="#111" strokeWidth="3" strokeLinecap="round"/>
+                      <circle cx="32" cy="32" r="4" fill="#111"/>
+                      <path d="M44 44L40 40" stroke="#111" strokeWidth="3" strokeLinecap="round"/>
+                      <path d="M20 44L24 40" stroke="#111" strokeWidth="3" strokeLinecap="round"/>
+                    </svg>
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -82,15 +85,21 @@ const FeaturesTiles = ({
               </div>
             </div>
 
+            {/* Tile for Process Optimization */}
             <div className="tiles-item reveal-from-bottom">
               <div className="tiles-item-inner" style={{ backgroundColor: '#111', border: '1px solid #A1FFC4' }}>
                 <div className="features-tiles-item-header">
                   <div className="features-tiles-item-image mb-16">
-                    <Image
-                      src={require('./../../assets/images/feature-tile-icon-02.svg')}
-                      alt="Features tile icon 02"
-                      width={64}
-                      height={64} />
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="32" cy="32" r="30" fill="#A1FFC4" stroke="#111" strokeWidth="2"/>
+                      <rect x="22" y="22" width="20" height="20" rx="2" fill="#111"/>
+                      <path d="M28 32H36" stroke="#A1FFC4" strokeWidth="2" strokeLinecap="round"/>
+                      <path d="M32 28V36" stroke="#A1FFC4" strokeWidth="2" strokeLinecap="round"/>
+                      <path d="M18 32H22" stroke="#111" strokeWidth="3" strokeLinecap="round"/>
+                      <path d="M42 32H46" stroke="#111" strokeWidth="3" strokeLinecap="round"/>
+                      <path d="M32 18V22" stroke="#111" strokeWidth="3" strokeLinecap="round"/>
+                      <path d="M32 42V46" stroke="#111" strokeWidth="3" strokeLinecap="round"/>
+                    </svg>
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -104,15 +113,18 @@ const FeaturesTiles = ({
               </div>
             </div>
 
+            {/* Tile for Efficiency Improvement */}
             <div className="tiles-item reveal-from-bottom">
               <div className="tiles-item-inner" style={{ backgroundColor: '#111', border: '1px solid #A1FFC4' }}>
                 <div className="features-tiles-item-header">
                   <div className="features-tiles-item-image mb-16">
-                    <Image
-                      src={require('./../../assets/images/feature-tile-icon-03.svg')}
-                      alt="Features tile icon 03"
-                      width={64}
-                      height={64} />
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="32" cy="32" r="30" fill="#A1FFC4" stroke="#111" strokeWidth="2"/>
+                      <path d="M32 18L38 32H26L32 46" stroke="#111" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="32" cy="32" r="2" fill="#111"/>
+                      <path d="M24 40L28 36" stroke="#111" strokeWidth="2" strokeLinecap="round"/>
+                      <path d="M40 40L36 36" stroke="#111" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -125,8 +137,6 @@ const FeaturesTiles = ({
                 </div>
               </div>
             </div>
-
-            {/* Additional tiles for more features */}
 
           </div>
         </div>

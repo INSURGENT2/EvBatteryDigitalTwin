@@ -47,9 +47,7 @@ const Footer = ({
           </div>
           <div className="footer-bottom space-between text-xxs invert-order-desktop">
             <FooterNav />
-            <div className="footer-copyright">
-              Made by <a href="https://cruip.com" style={{ color: '#00ff00' }}>Cruip</a>. All rights reserved.
-            </div>
+           
           </div>
         </div>
       </div>

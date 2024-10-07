@@ -18,10 +18,10 @@ const parameterConfig = {
 };
 
 const generateRandomData = () => ({
-  No_Defect: Math.floor(Math.random() * 10) + 1, // Whole number between 1 and 10
-  Minor_Defect: Math.floor(Math.random() * 10) + 1, // Whole number between 1 and 10
-  Major_Defect: Math.floor(Math.random() * 10) + 1, // Whole number between 1 and 10
-  Efficiency: (Math.random() * (95 - 80) + 80).toFixed(2), // Value between 80 and 95
+  No_Defect: Math.floor(Math.random() * 10) + 1,
+  Minor_Defect: Math.floor(Math.random() * 10) + 1,
+  Major_Defect: Math.floor(Math.random() * 10) + 1,
+  Efficiency: (Math.random() * (95 - 80) + 80).toFixed(2),
 });
 
 const WhatIfScenario = () => {
@@ -78,7 +78,8 @@ const WhatIfScenario = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (selectedMode === 'optimizer') {
-      const optimizedValue = 100.6575438627952; // Placeholder optimized value
+      const { min, max } = parameterConfig[optimizeParam];
+      const optimizedValue = Math.random() * (max - min) + min;
       setOutput({ optimal_value: optimizedValue });
     } else if (selectedMode === 'whatIf') {
       setGraphData(generateRandomData());
@@ -183,7 +184,7 @@ const WhatIfScenario = () => {
               )}
               {output && (
                 <div style={{ marginTop: '10px', padding: '10px', backgroundColor: '#000000', borderRadius: '4px', border: '1px solid #00ff00' }}>
-                  <p style={{ textAlign: 'center', color: '#ffffff' }}>Optimal Value: {output.optimal_value.toFixed(2)}</p>
+                  <p style={{ textAlign: 'center', color: '#ffffff' }}>Optimal Value: {output.optimal_value.toFixed(2)} {parameterConfig[optimizeParam].unit}</p>
                 </div>
               )}
               <Button type="submit" variant="success" style={{ width: '100%' }}>

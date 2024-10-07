@@ -11,13 +11,9 @@ import LayoutDefault from './layouts/LayoutDefault';
 
 // Views 
 import Home from './views/Home';
-
-import WhatIfScenario from './components/WhatIfScenario'; // Import What-if Scenario
+import WhatIfScenario from './components/WhatIfScenario';
 import Analytics from './components/Analytics';
 
-
-
-// Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
 
 const trackPage = page => {
@@ -34,21 +30,16 @@ const App = () => {
     document.body.classList.add('is-loaded');
     childRef.current.init();
     trackPage(page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   return (
-    <ScrollReveal
-      ref={childRef}
-      children={() => (
-        <Switch>
-          <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
-        
-          <AppRoute path="/what-if-scenario" component={WhatIfScenario} layout={LayoutDefault} />
-          <AppRoute path="/analytics" component={Analytics} layout={LayoutDefault} />
-        </Switch>
-      )} 
-    />
+    <ScrollReveal ref={childRef} children={() => (
+      <Switch>
+        <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
+        <AppRoute path="/what-if-scenario" component={WhatIfScenario} layout={LayoutDefault} />
+        <AppRoute path="/analytics" component={Analytics} layout={LayoutDefault} />
+      </Switch>
+    )} />
   );
 }
 
